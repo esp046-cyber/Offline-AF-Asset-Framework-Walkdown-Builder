@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  base: '/Offline-AF-Walkdown-Builder/',
+  base: '/Offline-AF-Asset-Framework-Walkdown-Builder/',
   plugins: [
     react(),
     VitePWA({
@@ -17,8 +17,8 @@ export default defineConfig({
         background_color: '#0f172a',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/Offline-AF-Walkdown-Builder/',
-        scope: '/Offline-AF-Walkdown-Builder/',
+        start_url: '/Offline-AF-Asset-Framework-Walkdown-Builder/',
+        scope: '/Offline-AF-Asset-Framework-Walkdown-Builder/',
         icons: [
           {
             src: 'icon.svg',
