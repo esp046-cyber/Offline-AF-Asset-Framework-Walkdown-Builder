@@ -1,0 +1,58 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ogBg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f151d"/>
+      <stop offset="1" stop-color="#0a0e14"/>
+    </linearGradient>
+    <linearGradient id="ogNode" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#22c55e"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#1f2a37" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#ogBg)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.4"/>
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="10" height="630" fill="#22c55e"/>
+
+  <!-- Hierarchy graphic, right side -->
+  <g transform="translate(760,150)" stroke-linecap="round">
+    <g stroke="#3d4d5f" stroke-width="5" fill="none">
+      <path d="M170 40 L170 90"/>
+      <path d="M170 90 L70 170"/>
+      <path d="M170 90 L170 170"/>
+      <path d="M170 90 L270 170"/>
+      <path d="M70 170 L70 220"/>
+      <path d="M170 170 L170 220"/>
+      <path d="M270 170 L270 220"/>
+    </g>
+    <rect x="130" y="0" width="80" height="52" rx="12" fill="url(#ogNode)"/>
+    <rect x="30" y="170" width="80" height="50" rx="10" fill="#161d27" stroke="#38bdf8" stroke-width="4"/>
+    <rect x="130" y="170" width="80" height="50" rx="10" fill="#161d27" stroke="#22c55e" stroke-width="4"/>
+    <rect x="230" y="170" width="80" height="50" rx="10" fill="#161d27" stroke="#f59e0b" stroke-width="4"/>
+    <circle cx="70" cy="195" r="5" fill="#38bdf8"/>
+    <circle cx="170" cy="195" r="5" fill="#22c55e"/>
+    <circle cx="270" cy="195" r="5" fill="#f59e0b"/>
+  </g>
+
+  <!-- Eyebrow -->
+  <text x="80" y="180" font-family="Segoe UI, Roboto, system-ui, sans-serif" font-size="24" font-weight="600" fill="#22c55e" letter-spacing="3">PI ASSET FRAMEWORK FIELD TOOL</text>
+
+  <!-- Title -->
+  <text x="80" y="270" font-family="Segoe UI, Roboto, system-ui, sans-serif" font-size="72" font-weight="800" fill="#f1f5f9">Offline AF</text>
+  <text x="80" y="350" font-family="Segoe UI, Roboto, system-ui, sans-serif" font-size="72" font-weight="800" fill="#f1f5f9">Walkdown Builder</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="410" font-family="Segoe UI, Roboto, system-ui, sans-serif" font-size="26" fill="#94a3b8">Map plant floor assets and export straight to PI Builder CSV.</text>
+  <text x="80" y="446" font-family="Segoe UI, Roboto, system-ui, sans-serif" font-size="26" fill="#94a3b8">No signal required. No backend. No spreadsheets.</text>
+
+  <!-- Footer chip -->
+  <rect x="80" y="500" width="230" height="48" rx="24" fill="#161d27" stroke="#2b3847" stroke-width="1"/>
+  <circle cx="108" cy="524" r="7" fill="#22c55e"/>
+  <text x="128" y="531" font-family="Segoe UI, Roboto, system-ui, sans-serif" font-size="20" font-weight="600" fill="#cbd5e1">100% Offline PWA</text>
+</svg>
