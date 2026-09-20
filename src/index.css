@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-graphite-950 text-slate-100 font-industrial;
+  overscroll-behavior: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-graphite-600 rounded-full;
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.input {
+  @apply w-full min-h-touch px-4 rounded-xl bg-graphite-800 border border-graphite-600
+         text-slate-100 text-base placeholder-slate-500
+         focus:outline-none focus:ring-2 focus:ring-signal-blue;
+}
