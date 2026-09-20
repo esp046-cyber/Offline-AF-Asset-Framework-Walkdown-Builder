@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      includeAssets: ['icon.svg', 'social-preview.svg'],
       manifest: {
         name: 'Offline AF Walkdown Builder',
         short_name: 'AF Walkdown',
@@ -21,19 +21,15 @@ export default defineConfig({
         scope: '/Offline-AF-Walkdown-Builder/',
         icons: [
           {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
+            src: 'icon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any'
           },
           {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
+            src: 'icon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
             purpose: 'maskable'
           }
         ]
