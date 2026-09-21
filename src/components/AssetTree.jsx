@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { ChevronRight, ChevronDown, Plus, Trash2, Wrench } from 'lucide-react'
+import { ChevronRight, ChevronDown, Plus, Trash2, Copy, Wrench } from 'lucide-react'
 
-export default function AssetTree({ assets, onAddChild, onDelete }) {
+export default function AssetTree({ assets, onAddChild, onDelete, onDuplicate }) {
   const roots = assets.filter((a) => a.parentId === null)
 
   return (
@@ -14,13 +14,14 @@ export default function AssetTree({ assets, onAddChild, onDelete }) {
           depth={0}
           onAddChild={onAddChild}
           onDelete={onDelete}
+          onDuplicate={onDuplicate}
         />
       ))}
     </div>
   )
 }
 
-function TreeNode({ node, assets, depth, onAddChild, onDelete }) {
+function TreeNode({ node, assets, depth, onAddChild, onDelete, onDuplicate }) {
   const [expanded, setExpanded] = useState(true)
   const children = assets.filter((a) => a.parentId === node.id)
   const hasChildren = children.length > 0
@@ -65,6 +66,16 @@ function TreeNode({ node, assets, depth, onAddChild, onDelete }) {
 
         {!isRoot && (
           <button
+            onClick={() => onDuplicate(node)}
+            className="min-h-touch min-w-[44px] flex items-center justify-center rounded-lg bg-signal-blue/20 active:bg-signal-blue/40 shrink-0"
+            aria-label={`Duplicate ${node.name}`}
+          >
+            <Copy size={20} className="text-signal-blue" />
+          </button>
+        )}
+
+        {!isRoot && (
+          <button
             onClick={() => onDelete(node.id)}
             className="min-h-touch min-w-[44px] flex items-center justify-center rounded-lg bg-signal-red/20 active:bg-signal-red/40 shrink-0"
             aria-label={`Delete ${node.name}`}
@@ -84,6 +95,7 @@ function TreeNode({ node, assets, depth, onAddChild, onDelete }) {
               depth={depth + 1}
               onAddChild={onAddChild}
               onDelete={onDelete}
+              onDuplicate={onDuplicate}
             />
           ))}
         </div>

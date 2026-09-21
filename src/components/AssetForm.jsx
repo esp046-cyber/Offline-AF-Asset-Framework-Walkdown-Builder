@@ -6,14 +6,46 @@ const TEMPLATES = [
   'Sensor', 'PLC', 'Instrument', 'Generic Asset'
 ]
 
-export default function AssetForm({ parentName, onSave, onClose }) {
+const MANUFACTURERS = [
+  'Siemens', 'Rockwell Automation', 'Emerson', 'ABB',
+  'Schneider Electric', 'Grundfos', 'Yokogawa', 'Honeywell'
+]
+
+// Turns "P-101" into "PLC.P_101" — strips anything that isn't A-Z/0-9,
+// collapses it to underscores, and prefixes PLC.
+function generateTagPrefix(name) {
+  const sanitized = name
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+  return sanitized ? `PLC.${sanitized}` : ''
+}
+
+export default function AssetForm({ parentName, initialTemplate, initialManufacturer, onSave, onClose }) {
   const [form, setForm] = useState({
     name: '',
-    template: TEMPLATES[0],
-    manufacturer: '',
+    template: initialTemplate || TEMPLATES[0],
+    manufacturer: initialManufacturer || '',
     serialNumber: '',
     plcTagPrefix: ''
   })
+  const [tagManuallyEdited, setTagManuallyEdited] = useState(false)
+
+  const handleNameChange = (e) => {
+    const value = e.target.value
+    setForm((f) => ({
+      ...f,
+      name: value,
+      // Only auto-fill the tag prefix if the user hasn't typed into that field themselves yet.
+      plcTagPrefix: tagManuallyEdited ? f.plcTagPrefix : generateTagPrefix(value)
+    }))
+  }
+
+  const handleTagChange = (e) => {
+    setTagManuallyEdited(true)
+    setForm((f) => ({ ...f, plcTagPrefix: e.target.value }))
+  }
 
   const update = (field) => (e) =>
     setForm((f) => ({ ...f, [field]: e.target.value }))
@@ -46,7 +78,7 @@ export default function AssetForm({ parentName, onSave, onClose }) {
             <input
               autoFocus
               value={form.name}
-              onChange={update('name')}
+              onChange={handleNameChange}
               placeholder="e.g. P-101"
               className="input"
               required
@@ -67,7 +99,14 @@ export default function AssetForm({ parentName, onSave, onClose }) {
               onChange={update('manufacturer')}
               placeholder="e.g. Grundfos"
               className="input"
+              list="manufacturer-list"
+              autoComplete="off"
             />
+            <datalist id="manufacturer-list">
+              {MANUFACTURERS.map((m) => (
+                <option key={m} value={m} />
+              ))}
+            </datalist>
           </Field>
 
           <Field label="Serial Number">
@@ -82,10 +121,13 @@ export default function AssetForm({ parentName, onSave, onClose }) {
           <Field label="PLC Tag Prefix">
             <input
               value={form.plcTagPrefix}
-              onChange={update('plcTagPrefix')}
+              onChange={handleTagChange}
               placeholder="e.g. PLC1.P101"
               className="input"
             />
+            {!tagManuallyEdited && form.name && (
+              <p className="text-xs text-slate-500 mt-1">Auto-filled from asset name — edit to override.</p>
+            )}
           </Field>
 
           <button
