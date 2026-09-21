@@ -4,7 +4,7 @@
     NOTE TO DEVELOPER: 
     Replace this placeholder image link with an animated .gif showing your plant-floor UX (e.g., adding an asset and cloning it).
   -->
-  <img src="https://via.placeholder.com/800x400/0f172a/10b981?text=+Drop+an+animated+GIF+of+the+Walkdown+App+here!+" alt="App Interface Preview" width="100%" style="border-radius: 12px;" />
+<img src="IMG_5195.jpeg" alt="App Interface Preview" width="100%" style="border-radius: 12px;" />
 
   <br />
   <h1>👷‍♂️ Offline AF Walkdown Builder</h1>
