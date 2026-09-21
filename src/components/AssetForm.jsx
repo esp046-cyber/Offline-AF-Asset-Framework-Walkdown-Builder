@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { X } from 'lucide-react'
+import { X, ChevronDown } from 'lucide-react'
 
+// Strict dropdown — exact set requested, no free text.
 const TEMPLATES = [
-  'Unit', 'Pump', 'Valve', 'Motor', 'Tank',
-  'Sensor', 'PLC', 'Instrument', 'Generic Asset'
+  'Pump', 'Valve', 'Motor', 'Tank', 'Sensor', 'PLC', 'Instrument', 'Generic'
 ]
 
+// Combobox — tap-to-select common vendors, but free text is always allowed.
 const MANUFACTURERS = [
   'Siemens', 'Rockwell Automation', 'Emerson', 'ABB',
-  'Schneider Electric', 'Grundfos', 'Yokogawa', 'Honeywell'
+  'Schneider Electric', 'Yokogawa', 'Honeywell', 'Grundfos', 'Endress+Hauser'
 ]
 
-// Turns "P-101" into "PLC.P_101" — strips anything that isn't A-Z/0-9,
-// collapses it to underscores, and prefixes PLC.
+// "P-101" -> "PLC.P_101": uppercase, non-alphanumerics collapsed to underscores.
 function generateTagPrefix(name) {
   const sanitized = name
     .trim()
@@ -37,7 +37,7 @@ export default function AssetForm({ parentName, initialTemplate, initialManufact
     setForm((f) => ({
       ...f,
       name: value,
-      // Only auto-fill the tag prefix if the user hasn't typed into that field themselves yet.
+      // Auto-fill the tag only until the user has typed into that field themselves.
       plcTagPrefix: tagManuallyEdited ? f.plcTagPrefix : generateTagPrefix(value)
     }))
   }
@@ -59,21 +59,21 @@ export default function AssetForm({ parentName, initialTemplate, initialManufact
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 safe-bottom">
       <div className="w-full sm:max-w-md bg-graphite-900 border-t sm:border border-graphite-600 rounded-t-2xl sm:rounded-2xl p-5 max-h-[92vh] overflow-y-auto">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-5">
           <div>
-            <h2 className="text-lg font-bold text-slate-100">Add Asset</h2>
-            <p className="text-sm text-slate-400">Parent: {parentName}</p>
+            <h2 className="text-xl font-bold text-slate-100">Add Asset</h2>
+            <p className="text-base text-slate-400">Parent: {parentName}</p>
           </div>
           <button
             onClick={onClose}
-            className="min-h-touch min-w-[56px] flex items-center justify-center rounded-xl bg-graphite-800 active:bg-graphite-700"
+            className="touch-btn min-h-touch min-w-[56px] flex items-center justify-center rounded-xl bg-graphite-800 active:bg-graphite-700"
             aria-label="Close"
           >
-            <X size={24} className="text-slate-300" />
+            <X size={26} className="text-slate-300" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Field label="Asset Name *">
             <input
               autoFocus
@@ -86,18 +86,28 @@ export default function AssetForm({ parentName, initialTemplate, initialManufact
           </Field>
 
           <Field label="Template">
-            <select value={form.template} onChange={update('template')} className="input">
-              {TEMPLATES.map((t) => (
-                <option key={t} value={t}>{t}</option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={form.template}
+                onChange={update('template')}
+                className="input appearance-none pr-12"
+              >
+                {TEMPLATES.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
+              <ChevronDown
+                size={22}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              />
+            </div>
           </Field>
 
           <Field label="Manufacturer">
             <input
               value={form.manufacturer}
               onChange={update('manufacturer')}
-              placeholder="e.g. Grundfos"
+              placeholder="Tap to select or type"
               className="input"
               list="manufacturer-list"
               autoComplete="off"
@@ -126,13 +136,13 @@ export default function AssetForm({ parentName, initialTemplate, initialManufact
               className="input"
             />
             {!tagManuallyEdited && form.name && (
-              <p className="text-xs text-slate-500 mt-1">Auto-filled from asset name — edit to override.</p>
+              <p className="text-sm text-slate-500 mt-1.5">Auto-filled from asset name — tap to override.</p>
             )}
           </Field>
 
           <button
             type="submit"
-            className="w-full min-h-touch mt-2 rounded-xl bg-signal-blue text-graphite-950 font-bold text-base active:opacity-80"
+            className="touch-btn w-full h-16 mt-2 rounded-xl bg-emerald-500 text-graphite-950 font-extrabold text-lg active:opacity-85"
           >
             Save Asset
           </button>
@@ -145,7 +155,7 @@ export default function AssetForm({ parentName, initialTemplate, initialManufact
 function Field({ label, children }) {
   return (
     <label className="block">
-      <span className="block text-sm font-semibold text-slate-400 mb-1.5">{label}</span>
+      <span className="block text-base font-semibold text-slate-400 mb-2">{label}</span>
       {children}
     </label>
   )
