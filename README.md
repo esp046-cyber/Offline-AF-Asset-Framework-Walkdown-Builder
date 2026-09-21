@@ -1,9 +1,5 @@
 
 <div align="center">
-  <!-- 
-    NOTE TO DEVELOPER: 
-    Replace this placeholder image link with an animated .gif showing your plant-floor UX (e.g., adding an asset and cloning it).
-  -->
 <img src="IMG_5195.jpeg" alt="App Interface Preview" width="100%" style="border-radius: 12px;" />
 
   <br />
