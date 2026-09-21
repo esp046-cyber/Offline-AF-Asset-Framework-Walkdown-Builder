@@ -9,16 +9,31 @@ export default function App() {
   const [assets, setAssets] = useAssets()
   const [formTarget, setFormTarget] = useState(null) // node being added to, or null
 
+  // Sticky form memory: remembers the last-used Template/Manufacturer for this session only.
+  const [lastUsed, setLastUsed] = useState({ template: null, manufacturer: null })
+
   const assetCount = assets.length - 1 // exclude root Plant node
+
+  const makeId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
 
   const handleSave = (formData) => {
     const newNode = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      id: makeId(),
       parentId: formTarget.id,
       ...formData
     }
     setAssets((prev) => [...prev, newNode])
+    setLastUsed({ template: formData.template, manufacturer: formData.manufacturer })
     setFormTarget(null)
+  }
+
+  const handleDuplicate = (node) => {
+    const clone = {
+      ...node,
+      id: makeId(),
+      name: `${node.name}-Copy`
+    }
+    setAssets((prev) => [...prev, clone])
   }
 
   const collectDescendants = (id, all) => {
@@ -83,6 +98,7 @@ export default function App() {
           assets={assets}
           onAddChild={(node) => setFormTarget(node)}
           onDelete={handleDelete}
+          onDuplicate={handleDuplicate}
         />
       </main>
 
@@ -99,6 +115,8 @@ export default function App() {
       {formTarget && (
         <AssetForm
           parentName={parentName}
+          initialTemplate={lastUsed.template}
+          initialManufacturer={lastUsed.manufacturer}
           onSave={handleSave}
           onClose={() => setFormTarget(null)}
         />
