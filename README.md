@@ -1,76 +1,114 @@
-# Offline AF Walkdown Builder
 
-A 100% client-side Progressive Web App that replaces clipboards and messy spreadsheets for Aveva PI System Engineers walking the plant floor to build Asset Framework (AF) hierarchies.
+<div align="center">
+  <!-- 
+    NOTE TO DEVELOPER: 
+    Replace this placeholder image link with an animated .gif showing your plant-floor UX (e.g., adding an asset and cloning it).
+  -->
+  <img src="https://via.placeholder.com/800x400/0f172a/10b981?text=+Drop+an+animated+GIF+of+the+Walkdown+App+here!+" alt="App Interface Preview" width="100%" style="border-radius: 12px;" />
 
-## Why this exists
+  <br />
+  <h1>👷‍♂️ Offline AF Walkdown Builder</h1>
+  <p><strong>A 100% client-side Progressive Web App (PWA) that replaces clipboards and messy spreadsheets for Aveva PI System Engineers.</strong></p>
 
-Walking a plant floor to map pumps, valves, motors, and instruments into a PI AF hierarchy usually means a clipboard, a half-broken Excel sheet, and no signal. This app is fully offline-capable, installs to your phone's home screen like a native app, and exports directly to a CSV formatted for **PI Builder** import — no backend, no API keys, no server, ever.
+  <p>
+    <img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+    <img src="https://img.shields.io/badge/Vite_PWA-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite PWA" />
+    <img src="https://img.shields.io/badge/100%25_Offline-10B981?style=for-the-badge&logo=offline&logoColor=white" alt="Offline First" />
+  </p>
+</div>
 
-## Features
+---
 
-- **Visual Hierarchy Builder** — tree view of Plant → Unit → Asset structure
-- **Oversized touch targets** — built for gloved hands on an iPhone in the field
-- **Industrial dark mode** — high-contrast graphite UI for outdoor/low-light viewing
-- **Offline-first PWA** — install to home screen, works with zero signal
-- **Local persistence** — data survives app close via `localStorage`
-- **One-tap CSV export** — generates a PI Builder-ready CSV client-side using `Blob`
+## 🏭 Why this exists
 
-## Tech Stack
+Walking a plant floor to map pumps, valves, motors, and instruments into a PI Asset Framework (AF) hierarchy usually means relying on a clipboard, a fragile Excel sheet, and dealing with dead Wi-Fi zones. 
 
-- React 18 + Vite
-- Tailwind CSS
-- `lucide-react` icons
-- `vite-plugin-pwa`
-- Zero backend, zero environment variables, zero external API calls
+This application eliminates that friction. It is **fully offline-capable**, installs directly to your iPhone's home screen like a native app, and exports a pre-formatted CSV ready for direct **PI Builder** injection. 
 
-## Getting Started
+> **Zero backend. Zero API keys. Zero servers.**
+
+<br />
+
+## ✨ Field-Optimized Features
+
+| 🌳 Hierarchy Construction | 📱 Industrial UX | 📴 Zero-Signal Reliability |
+| :--- | :--- | :--- |
+| **Visual Hierarchy Builder:** Construct dynamic Plant → Unit → Asset structures on the fly. | **Glove-Friendly:** Oversized touch targets optimized for one-handed iPhone use. | **Offline-First PWA:** Installs to the home screen and functions flawlessly in dead zones. |
+| **One-Tap CSV Export:** Generates PI Builder-ready CSV files natively in the browser via `Blob`. | **Dark Mode Design:** High-contrast graphite UI prevents eye fatigue in low-light environments. | **Persistent Memory:** Walkdown data survives app closures using persistent `localStorage`. |
+
+<br />
+
+## 🛠️ Tech Stack
+
+- **React 18 + Vite** — High-performance client-side rendering.
+- **Tailwind CSS** — Utility-first styling for industrial UI components.
+- **`lucide-react`** — Clean, scalable SVG icons.
+- **`vite-plugin-pwa`** — Service worker generation and manifest injection.
+
+<br />
+
+## 🚀 Local Development
 
 ```bash
+# 1. Install dependencies
 npm install
+
+# 2. Start the local dev server
 npm run dev
+
 ```
 
-## Build
+### Production Build & Preview
 
 ```bash
 npm run build
 npm run preview
+
 ```
 
-## Deployment (GitHub Pages)
+## 🌍 Deployment (GitHub Pages)
 
-This repo includes `.github/workflows/deploy.yml`, which builds the app and deploys `dist/` to GitHub Pages automatically on every push to `main`. In your repo settings, set **Pages → Source → GitHub Actions**.
+This repository includes a `.github/workflows/deploy.yml` workflow that automatically builds and deploys the `dist/` directory to GitHub Pages on every push to `main`.
 
-The Vite config is pinned to:
+**Setup Instructions:**
 
-```js
-base: '/Offline-AF-Walkdown-Builder/'
+1. Navigate to **Settings → Pages** in your GitHub repository.
+2. Set the **Source** dropdown to **GitHub Actions**.
+3. **Critical Path Check:** Ensure your Vite configuration matches your repository name to prevent 404 errors.
+
+```javascript
+// vite.config.js
+export default defineConfig({
+  base: '/Offline-AF-Walkdown-Builder/', // Must match your repo name exactly
+  // ...
+})
+
 ```
 
-If you rename the repository, update this value to match.
+## 📊 CSV Export Format
 
-## CSV Export Format
-
-The export button produces a CSV with these PI Builder-standard columns:
+The export utility strictly adheres to the Aveva PI Builder add-in format. The generated CSV will automatically structure the following columns:
 
 | Parent | Name | Template | Manufacturer | SerialNumber | PLCTagPrefix |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
+| Plant\Unit1 | P-101 | Pump | Grundfos | SN-88213 | PLC.P_101 |
 
-Import this file directly into PI Builder's Excel Add-in template to populate your AF hierarchy.
+*Simply open the generated file and import it directly into your PI Builder Excel Add-in.*
 
-## Data & Privacy
+## 🔒 Data & Privacy Security
 
-All walkdown data lives in your device's `localStorage`. Nothing is transmitted anywhere. Clearing your browser data will erase the walkdown — export to CSV regularly in the field.
+**This app is structurally incapable of leaking data.** All walkdown information is stored exclusively in your device's browser `localStorage`. No data is transmitted to external servers.
 
-## Icon Assets
+*Note: Clearing your Safari/Chrome browser data will wipe your walkdown cache. Always export your CSV at the end of a shift.*
 
-Before your first deploy, add these files to `public/` (referenced by the manifest and `index.html`):
+## 🖼️ Icon Assets
 
-- `favicon.svg`
-- `apple-touch-icon.png`
-- `pwa-192x192.png`
-- `pwa-512x512.png`
+Before your first production deployment, ensure the following generated UI assets are placed in the `public/` directory (referenced by the PWA manifest and `index.html`):
 
-## License
+* `favicon.svg`
+* `apple-touch-icon.png`
+* `pwa-192x192.png`
+* `pwa-512x512.png`
 
-MIT
+---
