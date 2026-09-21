@@ -1,6 +1,6 @@
 
 <div align="center">
-<img src="IMG_5195.jpeg" alt="App Interface Preview" width="100%" style="border-radius: 12px;" />
+<img src="public/IMG_5195.jpeg" alt="App Interface Preview" width="100%" style="border-radius: 12px;" />
 
   <br />
   <h1>👷‍♂️ Offline AF Walkdown Builder</h1>
